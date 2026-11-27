@@ -1135,6 +1135,29 @@ setInterval(()=>{
 /* ====== ИНИЦИАЛИЗАЦИЯ ====== */
 if(data.clicks>=67)unlock("67-й клик");
 updateStats();achievements();newMaze();renderStory();renderEventMenu();renderBackgroundMenu();
+</script><script>
+(()=>{
+ const API_URL='https://script.google.com/macros/s/AKfycbx9hRZ_glOOvsYCD9Vsnhff6fsHyvRUmnmIDCJF_XZ-aNcfA7LQhbrnyR-rOAXxFsQ51A/exec';
+
+ if(!API_URL.startsWith('https://script.google.com/'))return;
+
+ let anon=localStorage.getItem('nnAnonStatsId');
+
+ if(!anon){
+  anon=crypto.randomUUID
+   ?crypto.randomUUID()
+   :'nn-'+Date.now()+'-'+Math.random();
+
+  localStorage.setItem('nnAnonStatsId',anon);
+ }
+
+ fetch(API_URL,{
+  method:'POST',
+  mode:'no-cors',
+  headers:{'Content-Type':'text/plain;charset=utf-8'},
+  body:JSON.stringify({action:'track',id:anon})
+ }).catch(()=>{});
+})();
 </script>
 </body>
 </html>
